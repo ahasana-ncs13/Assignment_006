@@ -2,6 +2,10 @@ let allPants = ()=>{
     fetch("https://openapi.programming-hero.com/api/plants")
     .then(res=>res.json())
     .then(allplants =>{
+       
+        let allBTN= document.getElementById("all-btn")
+         activeRemove();
+        allBTN.classList.add("active")
         displayAllPlants(allplants.plants)
     });
 }
@@ -31,29 +35,43 @@ let displayAllPlants=(alls)=>{
 let allCategories = ()=>{
     fetch("https://openapi.programming-hero.com/api/categories")
     .then(res=>res.json())
-    .then(categories =>displayCategories(categories.categories
-));
+    .then(categories => {
+        displayCategories(categories.categories);
+    }
+);
 }
 allCategories();
 
 let displayCategories=(id)=>{
+
     id.forEach(el => {
         let categoriesContainer = document.getElementById("categories-container");
     let categoriesDiv= document.createElement("div");
     categoriesDiv.innerHTML=`
-    <button onclick="categoryPlant(${el.id})" class=" btn btn-soft w-full hover:bg-[#15803D] hover:text-white bg-[#F0FDF4] border-none ">${el.category_name}</button>
+    <button id="active-btn-${el.id}" onclick="categoryPlant(${el.id})" class=" remove-btn btn btn-soft w-full hover:bg-[#15803D] hover:text-white bg-[#F0FDF4] border-none ">${el.category_name}</button>
     `
     categoriesContainer.append(categoriesDiv);
-    });
     
+    });
+}
+
+let activeRemove =()=>{
+        let BtnRemove= document.querySelectorAll(".remove-btn")
+        BtnRemove.forEach(rev => {
+            rev.classList.remove("active");
+        });  
 }
 
 let categoryPlant=(id)=>{
     let url=`https://openapi.programming-hero.com/api/category/${id}`;
     fetch(url)
     .then(res=>res.json())
-    .then(plants =>displayAllPlants(plants.plants));
-   
+    .then(plants =>{
+        let Btn = document.getElementById(`active-btn-${id}`)
+        activeRemove()
+        Btn.classList.add("active");
+        displayAllPlants(plants.plants)
+    }); 
 }
 
 let modal = (id)=>{

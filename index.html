@@ -78,7 +78,7 @@
     <section id="categories-container" class="categories col-span-2 ">
       
         <h2 class="font-semibold text-xl text-center mb-5">Categories</h2>
-        <button onclick="allPants()" class="btn btn-soft w-full hover:bg-[#15803D] hover:text-white bg-[#F0FDF4] border-none ">All Trees</button>
+        <button id="all-btn" onclick="allPants()" class="remove-btn btn btn-soft w-full hover:bg-[#15803D] hover:text-white bg-[#F0FDF4] border-none ">All Trees</button>
 
     </section>
     <!-- card-container -->
@@ -86,8 +86,16 @@
 
     </section>
     <!-- cart  -->
-    <section class="cart col-span-2 ">
-
+    <section class="cart col-span-2 bg-white rounded-2xl p-5 ">
+      <h2 class="font-semibold text-xl my-2">Your Cart</h2>
+      <div class="cart-container"></div>
+      <div class="flex justify-between items-center p-2 bg-[#F0FDF4] rounded-lg mb-2">
+        <div class="">
+          <h3>Mango Tree</h3>
+          <p class="text-[#1F2937]">৳ <span>500</span> x 1</p>
+        </div>
+        <i class="fa-solid fa-xmark text-[#1F2937]"></i>
+      </div>
     </section>
 
     <!-- modal  -->
@@ -110,7 +118,7 @@
   <!-- about section  -->
      <section class="about w-8/12 mx-auto ">
       <h2 class="about-title font-semibold text-3xl my-10 text-center">About the Campaign</h2>
-      <div class="about-container flex md:flex flex-col  items-center gap-10">
+      <div class="about-container flex md:flex-row flex-col  items-center gap-10">
       <img src="./assets/about.png" alt="" class="rounded-xl">
       <div class="about-content">
         <p class="description text-[#1F2937] mb-5">Green Earth is a global tree plantation initiative dedicated to fighting climate change. Since our start, we’ve planted over 500,000 trees worldwide. By joining our campaign, you help restore forests, create habitats for wildlife, and combat global warming.</p>
