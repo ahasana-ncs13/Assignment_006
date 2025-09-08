@@ -1,7 +1,9 @@
 let allPants = ()=>{
     fetch("https://openapi.programming-hero.com/api/plants")
     .then(res=>res.json())
-    .then(allplants =>displayAllPlants(allplants.plants));
+    .then(allplants =>{
+        displayAllPlants(allplants.plants)
+    });
 }
 allPants();
 let displayAllPlants=(alls)=>{
@@ -12,7 +14,7 @@ let displayAllPlants=(alls)=>{
      card .innerHTML=`
      <div class="bg-white rounded-2xl p-4">
         <img src=${all.image} alt="" class="rounded-2xl h-[300px] w-full">
-        <h2 class="font-semibold text-sm text-[#18181B] my-2">${all.name}</h2>
+        <h2 onclick="modal(${all.id})" class="font-semibold text-sm text-[#18181B] my-2"> ${all.name} </h2>
         <p class="text-[0.75rem] text-[#1F2937]">${all.description}</p>
         <div class=" flex justify-between my-3">
         <button class="btn rounded-4xl bg-[#DCFCE7] text-[#15803D]">${all.category}</button>
@@ -51,5 +53,34 @@ let categoryPlant=(id)=>{
     fetch(url)
     .then(res=>res.json())
     .then(plants =>displayAllPlants(plants.plants));
+   
+}
 
+let modal = (id)=>{
+    let url= `https://openapi.programming-hero.com/api/plant/${id}`;
+     console.log(url)
+    fetch(url)
+    .then(res=>res.json())
+    .then(modalplants =>displayModal(modalplants.plants));
+   
+}
+let displayModal= (id)=>{
+    let modalContainer= document.getElementById("modal-card");
+     modalContainer.innerHTML=" "
+    let modaldiv=document.createElement("div");
+    modaldiv.innerHTML=`
+    <div class="bg-white rounded-2xl ">
+          <h2 class="font-semibold text-xl text-[#18181B] my-4"> ${id.name} </h2>
+
+        <img src=${id.image} alt="" class="rounded-2xl h-[310px] w-full">
+
+        <p class="font-semibold  my-2 text-[#1F2937]"><span class=" font-bold  text-black" >Category: </span>${id.category}</p>
+
+        <p class="font-semibold  text-[#1F2937] "><span class=" font-bold  text-black" >৳ Price : </span>${id.price}</p>
+
+        <p class="my-2 text-[#1F2937]"> <span class=" font-bold " >Description : </span>${id.description}</p>
+      </div>
+    `
+    modalContainer.append(modaldiv);
+     my_modal_5.showModal()
 }
