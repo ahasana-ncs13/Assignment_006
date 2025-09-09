@@ -73,29 +73,31 @@
  <main class="pt-20 bg-[#F0FDF4]">
     <h2 class="font-semibold text-3xl text-[#1F2937] text-center">Choose Your Trees</h2>
 
-<section class="grid md:grid-cols-12 grid-cols-1  gap-8 w-11/12 mx-auto my-20">
+     <!-- spinner  -->
+     <section id="spinner" class=" flex justify-center items-center mt-20 hidden ">
+      <span class="loading loading-dots loading-md"></span>
+     </section>
+
+<section id="container" class="grid md:grid-cols-12 grid-cols-1  gap-8 w-11/12 mx-auto my-20">
     <!-- categories -->
-    <section id="categories-container" class="categories col-span-2 ">
+    <section id="categories-container" class="categories col-span-2">
       
         <h2 class="font-semibold text-xl text-center mb-5">Categories</h2>
-        <button id="all-btn" onclick="allPants()" class="remove-btn btn btn-soft w-full hover:bg-[#15803D] hover:text-white bg-[#F0FDF4] border-none ">All Trees</button>
+        <button id="all-btn" onclick="allPlants()" class="remove-btn btn btn-soft w-full hover:bg-[#15803D] hover:text-white bg-[#F0FDF4] border-none ">All Trees</button>
 
     </section>
     <!-- card-container -->
     <section id="card-container" class="col-span-8 grid md:grid-cols-3 gap-5 grid-cols-1 ">
-
+     <span class="loading loading-dots loading-md"></span>
     </section>
     <!-- cart  -->
-    <section class="cart col-span-2 bg-white rounded-2xl p-5 ">
+    <section  class="cart col-span-2 bg-white rounded-2xl p-5 mx-auto ">
       <h2 class="font-semibold text-xl my-2">Your Cart</h2>
-      <div class="cart-container"></div>
-      <div class="flex justify-between items-center p-2 bg-[#F0FDF4] rounded-lg mb-2">
-        <div class="">
-          <h3>Mango Tree</h3>
-          <p class="text-[#1F2937]">৳ <span>500</span> x 1</p>
-        </div>
-        <i class="fa-solid fa-xmark text-[#1F2937]"></i>
+      <div id="cart-container">
       </div>
+      <div id="total-container">
+     </div>
+      
     </section>
 
     <!-- modal  -->

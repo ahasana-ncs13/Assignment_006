@@ -1,4 +1,16 @@
-let allPants = ()=>{
+let manageSpinner=(status)=>{
+    if(status==true){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("container").classList.add("hidden");
+    }
+    else{
+       document.getElementById("container").classList.remove("hidden");
+        document.getElementById("spinner").classList.add("hidden"); 
+    }
+}
+
+let allPlants = ()=>{
+    manageSpinner(true)
     fetch("https://openapi.programming-hero.com/api/plants")
     .then(res=>res.json())
     .then(allplants =>{
@@ -9,7 +21,7 @@ let allPants = ()=>{
         displayAllPlants(allplants.plants)
     });
 }
-allPants();
+allPlants();
 let displayAllPlants=(alls)=>{
     let cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML=" ";
@@ -24,14 +36,68 @@ let displayAllPlants=(alls)=>{
         <button class="btn rounded-4xl bg-[#DCFCE7] text-[#15803D]">${all.category}</button>
         <p class="font-semibold text-sm">৳<span>${all.price}</span></p>
         </div>
-        <button class="btn bg-[#15803D] text-white rounded-4xl w-full font-medium">Add to Cart</button>
+        <button class="cart-btn btn bg-[#15803D] text-white rounded-4xl w-full font-medium ">Add to Cart</button>
       </div>
      `
      cardContainer.append(card);
-     
-    };
+    };  
+   cart(alls) 
+
+   manageSpinner(false)
     
 }
+let total= 0;
+let cart=(alls)=>{
+    let cartBTN = document.getElementsByClassName("cart-btn");
+    
+    for (let i = 0; i < cartBTN.length; i++) {
+        cartBTN[i].addEventListener("click",()=>{
+          let pricePresent= cartBTN[i].parentNode.childNodes[7].children[1].children[0].innerText;
+          total= total + Number(pricePresent)
+           updateTotal(total);
+            let el=alls[i];
+         let containerCART= document.getElementById("cart-container");
+         
+                 let cartDiv= document.createElement("div");
+                 cartDiv.innerHTML=`
+            <div class=" flex justify-between items-center p-2 bg-[#F0FDF4] rounded-lg mb-2">
+              <div class="cart-div">
+                   <h3>${el.name}</h3>
+                   <p class="text-[#1F2937]">৳ <span id="price-tree">${el.price}</span> x 1</p>
+              </div>
+              <div id="del-cart" onclick="deleteCART()">
+                 <i  class="fa-solid fa-xmark text-[#1F2937]"></i>
+                </div>
+            </div>
+             `
+        containerCART.append(cartDiv) 
+       })
+    } 
+} 
+
+let updateTotal=(total)=>{
+
+    let containerPRICE= document.getElementById("total-container");
+     containerPRICE.innerHTML=" "
+        let totalDiv= document.createElement("div")
+        totalDiv.innerHTML=`
+        <p class="font-bold text-xl">Total :<span id="total-p" >${total}</span> </p>
+        `
+        containerPRICE.appendChild(totalDiv)
+}
+
+let deleteCART =()=>{
+   
+        let delCart= document.getElementById("del-cart")
+    let presentCart= delCart.parentNode.parentNode.innerHTML=" "
+   
+            let presentCart1= delCart.parentNode.childNodes[1].children[1].children[0].innerText
+            let total=document.getElementById("total-p")
+            let totalPRICE =total.innerText;
+            let total2=totalPRICE -presentCart1
+            updateTotal(total2);
+}
+
 let allCategories = ()=>{
     fetch("https://openapi.programming-hero.com/api/categories")
     .then(res=>res.json())
@@ -70,7 +136,7 @@ let categoryPlant=(id)=>{
         let Btn = document.getElementById(`active-btn-${id}`)
         activeRemove()
         Btn.classList.add("active");
-        displayAllPlants(plants.plants)
+        displayAllPlants(plants.plants) 
     }); 
 }
 
@@ -79,7 +145,9 @@ let modal = (id)=>{
      console.log(url)
     fetch(url)
     .then(res=>res.json())
-    .then(modalplants =>displayModal(modalplants.plants));
+    .then(modalplants =>{
+        displayModal(modalplants.plants)
+    });
    
 }
 let displayModal= (id)=>{
